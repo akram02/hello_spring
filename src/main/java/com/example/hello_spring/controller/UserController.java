@@ -1,8 +1,10 @@
 package com.example.hello_spring.controller;
 
 import com.example.hello_spring.model.User;
+import com.example.hello_spring.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,21 @@ import java.util.List;
 public class UserController {
     @Autowired
     UsersRepository usersRepository;
+
+
+    @Autowired
+    EmailService emailService;
+
+    @GetMapping("/send")
+    void sendMail(){
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo("akrammiru@gmail.com");
+        mailMessage.setSubject("Registration Confirmation");
+        mailMessage.setText("To confirm e-mail click this link");
+        mailMessage.setFrom("noreply@akramkhan.com");
+
+        emailService.sendEmail(mailMessage);
+    }
 
     @GetMapping("/")
     List<User> all(){
