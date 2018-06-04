@@ -1,20 +1,37 @@
 package com.example.hello_spring.model;
 
 import javax.persistence.*;
+import org.springframework.data.annotation.Transient;
 
 @Entity @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "users_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "users_name")
-    private String name;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-    @Column(name = "users_password")
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "password")
+    @Transient
     private String password;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
+    @Column(name = "role")
+    private String role;
 
     public int getId() {
         return id;
@@ -24,12 +41,28 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -40,12 +73,27 @@ public class User {
         this.password = password;
     }
 
-    public User() {
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public User(int id, String name, String password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
